@@ -1,7 +1,5 @@
-require 'nokogiri'
-require 'faraday'
-
 VIDAL_API_URL = "http://apirest-dev.vidal.fr/rest/api/"
+
 class HelloVidal
   attr_accessor :conn
   
