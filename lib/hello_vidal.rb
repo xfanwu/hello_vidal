@@ -24,13 +24,14 @@ class HelloVidal
   end
 
   def get_inner_text(type = nil, id = nil, node = nil)
-    request = send_api_request("#{type}/#{id}")
-    get_node_value(request.at('entry').at(node)) if request
+    send_api_request("#{type}/#{id}") ?
+      get_node_value(request.at('entry').at(node)) :
+      nil
   end
 
   private 
 
-  def send_api_request(keyword, params={})
+  def send_api_request(keyword, params = {})
     request = @conn.get do |req|
       req.url(keyword)
       unless params.empty?
@@ -39,7 +40,9 @@ class HelloVidal
         end
       end
     end
-    Nokogiri::XML(request.body).remove_namespaces!.at('feed') if request.status == 200 && Nokogiri::XML(request.body).errors.empty?
+    request.status == 200 && Nokogiri::XML(request.body).errors.empty? ?
+      Nokogiri::XML(request.body).remove_namespaces!.at('feed') :
+      nil
   end
 
 
