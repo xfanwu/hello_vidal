@@ -14,16 +14,18 @@ class HelloVidal
  
   # Return number of total products
   def get_total_of_products
-    send_api_request('products', { :'start-page' => 1, :'page-size' => 1 }).at('totalResults').text.to_i
+    send_api_request('products', { 'start-page' => 1, 'page-size' => 1 }).at('totalResults').text.to_i
   end
 
 
   # Return Nokogiri Object
-  def search(type = nil, query = nil)
-    send_api_request(type, {:'q' => query })
+  def search(type, query = nil)
+    send_api_request(type, {'q' => query })
   end
 
-  def get_inner_text(type = nil, id = nil, node = nil)
+
+  # Return string
+  def get_inner_text(type, id, node)
     send_api_request("#{type}/#{id}") ?
       get_node_value(request.at('entry').at(node)) :
       nil
