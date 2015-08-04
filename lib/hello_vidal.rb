@@ -1,13 +1,26 @@
 VIDAL_API_URL = "http://apirest-dev.vidal.fr/rest/api/"
 
 class HelloVidal
+  attr_reader :app_id, :app_key
 
   def initialize(app_id, app_key)
+    @app_id = app_id
+    @app_key = app_key
     @conn = Faraday.new(url: VIDAL_API_URL,
                         request: { params_encoder: Faraday::FlatParamsEncoder },
                         params: { app_id: app_id, app_key: app_key }) do |faraday|
                           faraday.adapter Faraday.default_adapter
                         end
+  end
+
+
+  def app_id
+    @app_id
+  end
+
+
+  def app_key
+    @app_key
   end
 
 
@@ -46,9 +59,21 @@ class HelloVidal
         end
       end
     end
-    request.status == 200 && Nokogiri::XML(request.body).errors.empty? ?
-      Nokogiri::XML(request.body).remove_namespaces!.at('feed') :
-      nil
+    
+    unless request.status == 200
+      raise %{
+
+        Seems there is a problem when connect to Vidal server. 
+        The HTTP request status code is: #{request.status}.
+
+        You may want to test the connection with the URL below in your browser:
+        #{request.env.url}
+      } 
+    else
+      Nokogiri::XML(request.body).errors.empty? ?
+        Nokogiri::XML(request.body).remove_namespaces!.at('feed') :
+        nil
+    end
   end
 
 
