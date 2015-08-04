@@ -1,26 +1,29 @@
 VIDAL_API_URL = "http://apirest-dev.vidal.fr/rest/api/"
 
 class HelloVidal
-  attr_accessor :conn
-  
-  def initialize(id, key)
+
+  def initialize(app_id, app_key)
     @conn = Faraday.new(url: VIDAL_API_URL,
                         request: { params_encoder: Faraday::FlatParamsEncoder },
-                        params: { app_id: id, app_key: key }) do |faraday|
+                        params: { app_id: app_id, app_key: app_key }) do |faraday|
                           faraday.adapter Faraday.default_adapter
                         end
   end
 
- 
+
   # Return number of total products
-  def get_total_of_products
+  def get_number_of_products
     send_api_request('products', { 'start-page' => 1, 'page-size' => 1 }).at('totalResults').text.to_i
   end
 
 
-  # Return Nokogiri Object
-  def search(type, query = nil)
-    send_api_request(type, {'q' => query })
+  # Return a set of Nokogiri Objects
+  def search(type: nil, query: nil, start_page: 1, page_size: 10)
+    if type.nil?
+      raise ArgumentError.new 'Error: You need to define "type" at least (eg. "products")'
+    end
+      @res = send_api_request(type, {'q' => query, 'start-page' => start_page, 'page-size' => page_size })
+      @res.search('entry').to_a if @res
   end
 
 
@@ -30,6 +33,7 @@ class HelloVidal
       get_node_value(request.at('entry').at(node)) :
       nil
   end
+
 
   private 
 
