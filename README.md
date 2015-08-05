@@ -5,8 +5,7 @@ Vidalo is a simple ruby gem for [Vidal](https://vidal.3scale.net/docs/api_fr) RE
 
 ## Requirements
 
-You may need to apply an app-id and app-key from Vidal's [website](https://vidal.3scale.net/signup)
-
+0. **APP_ID & APP_KEY** You may need to apply from Vidal's [website](https://vidal.3scale.net/signup)
 1. **Faraday** - HTTP connection
 2. **Nokogiri** - XML parser
 
@@ -17,10 +16,7 @@ require 'nokogiri'
 require 'faraday'
 require 'vidalo'
 
-APP_ID = 'yourappid'
-APP_KEY = 'yourappkey'
-
-api = Vidalo.new(APP_ID, APP_KEY)
+api = Vidalo::Connection.new('YOUR_APP_ID', 'YOUR_APP_KEY')
 
 ## Get total number of products ##
 total = api.get_number_of_products
@@ -31,5 +27,11 @@ result = api.search(type: 'packages', query: 'Doliprane', page_size: 20, start_p
 ## Get a node inner text ##
 title = api.get_inner_text(type: 'package', id: 5355, node: 'title')
 ```
+
+## Todo
+
+- Get a product with aggregating information.
+- Get packages from a product.
+- Search a product/package by its cip13 code.
 
 More features are comming and welcome to fork.
