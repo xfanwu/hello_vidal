@@ -1,6 +1,6 @@
 VIDAL_API_URL = "http://apirest-dev.vidal.fr/rest/api/"
 
-class HelloVidal
+class Vidalo
   attr_reader :app_id, :app_key
 
   def initialize(app_id, app_key)

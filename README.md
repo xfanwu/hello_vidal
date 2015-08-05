@@ -1,7 +1,7 @@
-Hello Vidal
+Vidalo
 ===========
 
-HelloVidal is a simple ruby gem for [Vidal](https://vidal.3scale.net/docs/api_fr) REST API.
+Vidalo is a simple ruby gem for [Vidal](https://vidal.3scale.net/docs/api_fr) REST API.
 
 ## Requirements
 
@@ -15,12 +15,12 @@ You may need to apply an app-id and app-key from Vidal's [website](https://vidal
 ```ruby
 require 'nokogiri'
 require 'faraday'
-require 'hello_vidal'
+require 'vidalo'
 
 APP_ID = 'yourappid'
 APP_KEY = 'yourappkey'
 
-api = HelloVidal.new(APP_ID, APP_KEY)
+api = Vidalo.new(APP_ID, APP_KEY)
 
 ## Get total number of products ##
 total = api.get_number_of_products
