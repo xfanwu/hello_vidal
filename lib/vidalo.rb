@@ -14,16 +14,6 @@ class Vidalo
   end
 
 
-  def app_id
-    @app_id
-  end
-
-
-  def app_key
-    @app_key
-  end
-
-
   # Return number of total products
   def get_number_of_products
     send_api_request('products', { 'start-page' => 1, 'page-size' => 1 }).at('totalResults').text.to_i
