@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'vidalo'
-  s.version     = '0.0.2'
+  s.version     = '0.0.3'
   s.date        = '2015-07-23'
   s.summary     = "A gem for using Vidal API easier"
   s.description = s.summary
