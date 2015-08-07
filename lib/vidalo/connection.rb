@@ -1,8 +1,13 @@
-require 'vidalo/rest/get'
+require 'vidalo/parser'
+require 'vidalo/api/get'
+require 'vidalo/api/search'
+VIDAL_API_URL = 'http://apirest-dev.vidal.fr/rest/api/'
 
 module Vidalo
   class Connection
-    include Vidalo::REST::GET
+    include Vidalo::API::Get
+    include Vidalo::API::Search
+    include Vidalo::Parser
     attr_reader :app_id, :app_key
 
     def initialize(app_id, app_key)

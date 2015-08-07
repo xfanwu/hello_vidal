@@ -5,11 +5,11 @@ Vidalo is a simple ruby gem for [Vidal](https://vidal.3scale.net/docs/api_fr) RE
 
 ## Requirements
 
-0. **APP_ID & APP_KEY** You may need to apply from Vidal's [website](https://vidal.3scale.net/signup)
+0. **APP_ID & APP_KEY** - You may need to apply from Vidal's [website](https://vidal.3scale.net/signup)
 1. **Faraday** - HTTP connection
 2. **Nokogiri** - XML parser
 
-## A simple test example
+## Features and Examples
 
 ```ruby
 require 'nokogiri'
@@ -26,11 +26,15 @@ result = api.search(type: 'packages', query: 'Doliprane', page_size: 20, start_p
 
 ## Get a node inner text ##
 title = api.get_inner_text(type: 'package', id: 5355, node: 'title')
+
+## Get a product's information with multiple categories aggregation ##
+product = api.search_product(id: 45, aggregate: ['UCD', 'DOCUMENT'])
+## or
+product = api.search_product(id: 45, all_info: true)
 ```
 
 ## Todo
 
-- Get a product with aggregating information.
 - Get packages from a product.
 - Search a product/package by its cip13 code.
 
