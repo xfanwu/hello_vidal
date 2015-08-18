@@ -9,6 +9,17 @@ Vidalo is a simple ruby gem for [Vidal](https://vidal.3scale.net/docs/api_fr) RE
 1. **Faraday** - HTTP connection
 2. **Nokogiri** - XML parser
 
+## Installation
+
+```shell
+gem install vidalo
+```
+
+or bundle the gem for your Rails App.
+
+```ruby
+gem 'vidalo'
+```
 ## Features and Examples
 
 ```ruby
